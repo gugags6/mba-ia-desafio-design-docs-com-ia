@@ -266,9 +266,9 @@ Como o token JWT atual (`JwtPayload` em `src/middlewares/auth.middleware.ts`, li
 
 ### 6.1 `POST /api/v1/webhooks` — Cadastrar Webhook
 
-- **Origem:** `[09:21] Sofia/Bruno`, `[09:23] Sofia`, `[09:31] Marcos`, `[09:32] Larissa`, `[09:36]–[09:37] Marcos/Sofia`, `[09:44] Sofia`.
+- **Origem:** `[09:21] Sofia/Bruno`, `[09:23] Sofia`, `[09:31] Marcos`, `[09:32] Larissa`, `[09:36]–[09:37] Marcos/Sofia`.
 - **Autenticação / Role:** JWT obrigatório (`ADMIN` ou `OPERATOR`).
-- **Semântica:** Cria uma nova configuração de webhook ativa para o `customerId` informado, valida que a `url` utiliza protocolo `https://`, que a lista de `events` contém valores válidos do enum `OrderStatus` e respeita o limite de até **5 webhooks ativos por customer** (`[09:44] Sofia`, `[09:45] Diego`). O OMS gera criptograficamente a `secret` exclusiva do endpoint e a retorna na criação.
+- **Semântica:** Cria uma nova configuração de webhook ativa para o `customerId` informado, valida que a `url` utiliza protocolo `https://` e que a lista de `events` contém valores válidos do enum `OrderStatus`. O OMS gera criptograficamente a `secret` exclusiva do endpoint e a retorna na criação.
 - **Headers Request:** `Authorization: Bearer <token>`, `Content-Type: application/json`
 
 **Request Body (JSON):**
@@ -544,7 +544,6 @@ Conforme definido em `[09:28] Bruno` e `[09:29] Larissa` (*"Prefixo WEBHOOK_ pra
 | `WEBHOOK_PAYLOAD_TOO_LARGE` | `422` | `UnprocessableEntityError` | O snapshot do payload JSON do evento excede o limite máximo de **64KB** (65.536 bytes). Não trunca e aborta a operação. | Comportamento definido em `[09:23] Sofia` e `[09:24] Diego/Larissa` + regra de prefixo `[09:29] Larissa` *(nome exato do código derivado da regra `WEBHOOK_`)* |
 | `WEBHOOK_DEAD_LETTER_NOT_FOUND` | `404` | `AppError` / `NotFoundError` | O `:id` informado em `POST /api/v1/admin/webhooks/dead-letter/:id/replay` não existe na tabela `webhook_dead_letter`. | Fluxo de replay em `[09:18] Diego` e `[09:35] Diego` + regra de prefixo `[09:29] Larissa` *(nome exato do código derivado da regra `WEBHOOK_`)* |
 | `WEBHOOK_DEAD_LETTER_ALREADY_REPLAYED` | `409` | `ConflictError` | Tentativa de acionar replay em um registro da DLQ que já foi reprocessado anteriormente. | Padrão de `ConflictError` em `src/shared/errors/http-errors.ts` + `[09:29] Larissa` *(pendente de definição se será permitido múltiplos replays ou bloqueado com 409)* |
-| `WEBHOOK_LIMIT_EXCEEDED` | `422` / `409` | `UnprocessableEntityError` / `ConflictError` | Tentativa de criar ou ativar mais de **5 webhooks ativos** para o mesmo `customerId`. | Limite mencionado em `[09:44] Sofia` e confirmado em `[09:45] Diego` + regra de prefixo `[09:29] Larissa` *(nome exato do código derivado da regra `WEBHOOK_`)* |
 
 ---
 

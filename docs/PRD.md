@@ -88,7 +88,7 @@ Os itens abaixo foram explicitamente discutidos e **excluídos ou adiados** dura
 
 | ID | Requisito Funcional | Descrição de Produto | Origem (`TRANSCRICAO.md` / Código) |
 | :--- | :--- | :--- | :--- |
-| **RF-01** | **Cadastro de Webhook por Cliente (`POST`)** | O sistema deve permitir cadastrar um endpoint de webhook autenticado informando o cliente (`customer_id`), a `url` de destino (`https://`) e a lista de status de pedido que deseja receber (observando o limite mencionado de até 5 webhooks ativos por cliente). O OMS deve gerar uma `secret` exclusiva para o endpoint e devolvê-la na resposta de criação. | `[09:21] Sofia/Bruno`, `[09:23] Sofia`, `[09:31] Marcos`, `[09:32] Larissa`, `[09:44] Sofia` |
+| **RF-01** | **Cadastro de Webhook por Cliente (`POST`)** | O sistema deve permitir cadastrar um endpoint de webhook autenticado informando o cliente (`customer_id`), a `url` de destino (`https://`) e a lista de status de pedido que deseja receber. O OMS deve gerar uma `secret` exclusiva para o endpoint e devolvê-la na resposta de criação. | `[09:21] Sofia/Bruno`, `[09:23] Sofia`, `[09:31] Marcos`, `[09:32] Larissa` |
 | **RF-02** | **Listagem de Webhooks de um Cliente (`GET`)** | O sistema deve permitir listar todos os webhooks configurados para um determinado cliente (`customer_id`). | `[09:32] Larissa`, `[09:33] Bruno` |
 | **RF-03** | **Edição de Configuração de Webhook (`PATCH`)** | O sistema deve permitir atualizar um webhook existente (alterar URL `https://`, modificar a lista de status de pedidos monitorados e ativar/desativar o endpoint). | `[09:21] Bruno`, `[09:33] Bruno/Marcos` |
 | **RF-04** | **Remoção de Webhook (`DELETE`)** | O sistema deve permitir excluir um endpoint de webhook cadastrado. | `[09:33] Bruno` |
